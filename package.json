@@ -1,0 +1,30 @@
+{
+  "name": "harvest-zendesk-sync",
+  "version": "1.0.0",
+  "description": "A task to sync Harvest Clients and Projects with ZenDesk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node ./run.js",
+    "build": "./node_modules/.bin/gulp build",
+    "upload": "./node_modules/.bin/gulp"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.2.25",
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-install": "^0.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-util": "^3.0.7",
+    "gulp-zip": "^3.0.2",
+    "run-sequence": "^1.1.5"
+  },
+  "dependencies": {
+    "bluebird": "^3.1.1",
+    "dotenv": "^1.2.0",
+    "lodash": "^3.10.1",
+    "request-promise": "^1.0.2"
+  }
+}

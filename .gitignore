@@ -1,0 +1,6 @@
+npm-debug.log
+config.env.production
+.env
+node_modules
+dist
+dist.zip
