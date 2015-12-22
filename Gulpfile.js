@@ -75,11 +75,20 @@ gulp.task('upload', function() {
     })
     .spread(function (found, fileData) {
       if (found) {
-        return lambda.updateFunctionCodeP({
-          FunctionName: pkg.name,
-          ZipFile: fileData,
-          Publish: true
-        })
+        return Promise.all([
+          lambda.updateFunctionConfigurationP({
+            FunctionName: pkg.name,
+            Description: pkg.description,
+            MemorySize: parseInt(process.env.AWS_LAMBDA_MEMORY_SIZE),
+            Timeout: parseInt(process.env.AWS_LAMBDA_TIMEOUT),
+            Role: process.env.AWS_LAMBDA_ROLE
+          }),
+          lambda.updateFunctionCodeP({
+            FunctionName: pkg.name,
+            ZipFile: fileData,
+            Publish: true
+          })
+        ])
       } else {
         return lambda.createFunctionP({
           FunctionName: pkg.name,
@@ -87,8 +96,8 @@ gulp.task('upload', function() {
           Runtime: 'nodejs',
           Role: process.env.AWS_LAMBDA_ROLE,
           Handler: 'index.handler',
-          MemorySize: 128,
-          Timeout: 3,
+          MemorySize: parseInt(process.env.AWS_LAMBDA_MEMORY_SIZE),
+          Timeout: parseInt(process.env.AWS_LAMBDA_TIMEOUT),
           Publish: true,
           Code: {
             ZipFile: fileData
